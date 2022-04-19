@@ -1,6 +1,8 @@
 on:
   rss:
     url: https://github.com/LuisAlejandro/dockershelf/releases.atom
+    config:
+      limit: 1
 jobs:
   dockershelf:
     name: Publish new Dockershelf versions

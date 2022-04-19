@@ -1,6 +1,8 @@
 on:
   rss:
     url: https://github.com/LuisAlejandro/candyshop/releases.atom
+    config:
+      limit: 
 jobs:
   candyshop:
     name: Publish Candyshop new versions
