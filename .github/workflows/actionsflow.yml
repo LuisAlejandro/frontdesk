@@ -22,7 +22,7 @@ on:
         default: "false"
 jobs:
   run:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     name: Run
     concurrency: actionsflow
     steps:

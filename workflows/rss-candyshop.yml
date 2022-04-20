@@ -2,14 +2,14 @@ on:
   rss:
     url: https://github.com/LuisAlejandro/candyshop/releases.atom
     config:
-      limit: 
+      limit: 1
 jobs:
   candyshop:
     name: Publish Candyshop new versions
     runs-on: ubuntu-20.04
     steps:
       - name: Post tweet
-        uses: LuisAlejandro/send-tweet-with-media@0.1.1
+        uses: LuisAlejandro/send-tweet-with-media@0.2.0
         env:
           TWITTER_CONSUMER_KEY: ${{ secrets.TWITTER_CONSUMER_KEY }}
           TWITTER_CONSUMER_SECRET: ${{ secrets.TWITTER_CONSUMER_SECRET }}

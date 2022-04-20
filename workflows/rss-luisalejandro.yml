@@ -1,0 +1,29 @@
+on:
+  rss:
+    url: https://luisalejandro.org/blog/rss/feed.xml
+    config:
+      active: false
+jobs:
+  lastpost:
+    name: Publish last post from blog
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: LuisAlejandro/tweet-last-post-from-feed@0.2.0
+        env:
+          TWITTER_CONSUMER_KEY: ${{ secrets.TWITTER_CONSUMER_KEY }}
+          TWITTER_CONSUMER_SECRET: ${{ secrets.TWITTER_CONSUMER_SECRET }}
+          TWITTER_OAUTH_TOKEN: ${{ secrets.TWITTER_OAUTH_TOKEN }}
+          TWITTER_OAUTH_SECRET: ${{ secrets.TWITTER_OAUTH_SECRET }}
+          FEED_URL: https://hnrss.org/newest?points=300&count=3
+  randompost:
+    name: Publish random post from blog
+    runs-on: ubuntu-20.04
+    if: false
+    steps:
+      - uses: LuisAlejandro/tweet-random-post-from-feed@0.2.0
+        env:
+          TWITTER_CONSUMER_KEY: ${{ secrets.TWITTER_CONSUMER_KEY }}
+          TWITTER_CONSUMER_SECRET: ${{ secrets.TWITTER_CONSUMER_SECRET }}
+          TWITTER_OAUTH_TOKEN: ${{ secrets.TWITTER_OAUTH_TOKEN }}
+          TWITTER_OAUTH_SECRET: ${{ secrets.TWITTER_OAUTH_SECRET }}
+          FEED_URL: https://hnrss.org/newest?points=300&count=3
