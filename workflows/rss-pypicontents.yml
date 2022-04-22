@@ -4,12 +4,11 @@ on:
     config:
       limit: 1
 jobs:
-  pypicontents:
-    name: Publish new PyPIContents versions
+  send-tweet-with-media:
+    name: Tweet new PyPIContents versions
     runs-on: ubuntu-20.04
     steps:
-      - name: Post tweet
-        uses: LuisAlejandro/send-tweet-with-media@0.2.0
+      - uses: LuisAlejandro/send-tweet-with-media@0.2.0
         env:
           TWITTER_CONSUMER_KEY: ${{ secrets.TWITTER_CONSUMER_KEY }}
           TWITTER_CONSUMER_SECRET: ${{ secrets.TWITTER_CONSUMER_SECRET }}
@@ -17,6 +16,13 @@ jobs:
           TWITTER_OAUTH_SECRET: ${{ secrets.TWITTER_OAUTH_SECRET }}
           STATUS_TEXT: "${{ on.rss.outputs.title }}: A new version of #pypicontents has been released! ${{ on.rss.outputs.link }}"
           STATUS_IMAGE_URL_1: https://user-images.githubusercontent.com/324683/95548207-9a36d900-09d2-11eb-9b64-c7c4429eee32.png
-      - run: echo $content
+  send-fb-post-with-media:
+    name: Publish new PyPIContents versions
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: LuisAlejandro/send-fb-post-with-media@0.1.0
         env:
-          content: ${{ toJSON(on) }}
+          FACEBOOK_ACCESS_TOKEN: ${{ secrets.FACEBOOK_ACCESS_TOKEN }}
+          FACEBOOK_PAGE_ID: ${{ secrets.FACEBOOK_PAGE_ID }}
+          STATUS_TEXT: "${{ on.rss.outputs.title }}: A new version of #pypicontents has been released! ${{ on.rss.outputs.link }}"
+          STATUS_IMAGE_URL_1: https://user-images.githubusercontent.com/324683/95548207-9a36d900-09d2-11eb-9b64-c7c4429eee32.png
