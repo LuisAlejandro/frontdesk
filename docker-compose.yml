@@ -1,0 +1,11 @@
+version: "3"
+services:
+  actionsflow-workflow:
+    image: luisalejandro/actionsflow-workflow:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/home/luisalejandro/app
+    env_file:
+      - .env

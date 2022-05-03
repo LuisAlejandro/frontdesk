@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
 jobs:
   reset:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     name: Reset Actionsflow Cache
     steps:
       - uses: actions/checkout@v2

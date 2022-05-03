@@ -1,0 +1,18 @@
+on:
+  script:
+    run: |
+      const crypto = require("crypto");
+      const id = crypto.randomBytes(16).toString("hex");
+      return [{id}]
+jobs:
+  moviebox:
+    runs-on: ubuntu-20.04
+    steps:
+      - run: npm install
+      - uses: LuisAlejandro/movie-box@0.1.7
+        env:
+          GH_TOKEN: ${{ secrets.GIST_PERSONAL_ACCESS_TOKEN }}
+          GIST_ID: ${{ secrets.MOVIEBOX_GIST_ID }}
+          TRAKT_ID: ${{ secrets.TRAKT_ID }}
+          TRAKT_USERNAME: ${{ secrets.TRAKT_USERNAME }}
+          MOVIE_BOX_MODE: ${{ secrets.MOVIE_BOX_MODE }}

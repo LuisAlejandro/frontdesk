@@ -1,0 +1,17 @@
+on:
+  script:
+    run: |
+      const crypto = require("crypto");
+      const id = crypto.randomBytes(16).toString("hex");
+      return [{id}]
+jobs:
+  musicbox:
+    runs-on: ubuntu-20.04
+    steps:
+      - run: npm install
+      - uses: jacc/music-box@master
+        env:
+          LASTFM_KEY: ${{ secrets.LASTFM_API_KEY }}
+          GH_TOKEN: ${{ secrets.GIST_PERSONAL_ACCESS_TOKEN }}
+          LFMUSERNAME: ${{ secrets.LASTFM_USERNAME }}
+          GIST_ID: ${{ secrets.MUSICBOX_GIST_ID }}
