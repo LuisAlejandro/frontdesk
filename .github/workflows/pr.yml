@@ -37,8 +37,7 @@ jobs:
         run: |
           touch .env
           sudo chown -R 1000:1000 .
-          make build
-          make clean
+          make dependencies build clean
           sudo chown -R runner:docker .
       - name: Pushing docker image
         run: |
