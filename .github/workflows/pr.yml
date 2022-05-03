@@ -35,6 +35,7 @@ jobs:
           docker build . -t luisalejandro/actionsflow-workflow:latest --cache-from=docker.pkg.github.com/$GITHUB_REPOSITORY/actionsflowworkflow-build-cache
       - name: Building project
         run: |
+          touch .env
           sudo chown -R 1000:1000 .
           make build
           make clean
