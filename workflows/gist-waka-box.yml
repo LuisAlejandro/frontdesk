@@ -8,7 +8,6 @@ jobs:
   wakabox:
     runs-on: ubuntu-20.04
     steps:
-      - run: npm install
       - uses: matchai/waka-box@master
         env:
           GH_TOKEN: ${{ secrets.GIST_PERSONAL_ACCESS_TOKEN }}

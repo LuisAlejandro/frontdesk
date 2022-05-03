@@ -8,8 +8,11 @@ jobs:
   musicbox:
     runs-on: ubuntu-20.04
     steps:
+      - uses: actions/checkout@v2
+        with:
+          repository: 'jacc/music-box'
       - run: npm install
-      - uses: jacc/music-box@master
+      - uses: ./
         env:
           LASTFM_KEY: ${{ secrets.LASTFM_API_KEY }}
           GH_TOKEN: ${{ secrets.GIST_PERSONAL_ACCESS_TOKEN }}
