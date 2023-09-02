@@ -36,7 +36,7 @@ jobs:
         uses: docker/setup-buildx-action@v2
 
       - name: Building docker image
-        uses: docker/build-push-action@v3
+        uses: docker/build-push-action@v4
         with:
             tags: luisalejandro/actionsflow-workflow:latest
             file: Dockerfile
