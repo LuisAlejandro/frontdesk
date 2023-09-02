@@ -1,17 +1,13 @@
 on:
   script:
-    run: |
-      const crypto = require("crypto");
-      const id = crypto.randomBytes(16).toString("hex");
-      return [{id}]
+    every: 0 8 * * *
+
 jobs:
   wakabox:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     steps:
       - uses: matchai/waka-box@master
         env:
           GH_TOKEN: ${{ secrets.GIST_PERSONAL_ACCESS_TOKEN }}
           GIST_ID: ${{ secrets.WAKABOX_GIST_ID }}
           WAKATIME_API_KEY: ${{ secrets.WAKATIME_API_KEY }}
-
-

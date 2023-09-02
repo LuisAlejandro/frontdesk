@@ -1,11 +1,12 @@
 version: "3"
 services:
-  actionsflow-workflow:
+  app:
     image: luisalejandro/actionsflow-workflow:latest
     build:
       context: .
       dockerfile: Dockerfile
     volumes:
       - .:/home/luisalejandro/app
+      - ~/Library/Caches/Yarn:/home/luisalejandro/.cache/yarn
     env_file:
       - .env

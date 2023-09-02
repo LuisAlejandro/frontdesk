@@ -2,37 +2,65 @@
 # -*- makefile -*-
 
 SHELL = bash -e
+all_ps_hashes = $(shell docker ps -q)
+img_hash = $(shell docker images -q luisalejandro/actionsflow-workflow:latest)
+exec_on_docker = docker compose \
+	-p actionsflow -f docker-compose.yml exec \
+	--user luisalejandro app
 
 
 image:
-	@docker-compose -p actionsflow-workflow -f docker-compose.yml build --force-rm --pull
+	@docker compose -p actionsflow -f docker-compose.yml build \
+		--build-arg UID=$(shell id -u) \
+		--build-arg GID=$(shell id -g)
 
 start:
-	@docker-compose -p actionsflow-workflow -f docker-compose.yml up --remove-orphans -d
+	@if [ -z "$(img_hash)" ]; then\
+		make image;\
+	fi
+	@docker compose -p actionsflow -f docker-compose.yml up \
+		--remove-orphans --no-build --detach
 
 dependencies: start
-	@docker-compose -p actionsflow-workflow -f docker-compose.yml exec \
-		-T --user luisalejandro actionsflow-workflow yarn install
+	@$(exec_on_docker) yarn install
 
 build: start
-	@docker-compose -p actionsflow-workflow -f docker-compose.yml exec \
-		-T --user luisalejandro actionsflow-workflow yarn run build
+	@$(exec_on_docker) yarn run build
 
 clean: start
-	@docker-compose -p actionsflow-workflow -f docker-compose.yml exec \
-		-T --user luisalejandro actionsflow-workflow yarn run clean
+	@$(exec_on_docker) yarn run clean
+
+serve: start
+	@$(exec_on_docker) yarn dev
 
 console: start
-	@docker-compose -p actionsflow-workflow -f docker-compose.yml exec \
-		--user luisalejandro actionsflow-workflow bash
+	@$(exec_on_docker) bash
 
 stop:
-	@docker-compose -p actionsflow-workflow -f docker-compose.yml stop actionsflow-workflow
+	@docker-compose -p actionsflow -f docker-compose.yml stop app
 
 down:
-	@docker-compose -p actionsflow-workflow -f docker-compose.yml down \
+	@docker-compose -p actionsflow -f docker-compose.yml down \
 		--remove-orphans
 
 destroy:
-	@docker-compose -p actionsflow-workflow -f docker-compose.yml down \
-		--rmi all --remove-orphans -v
+	@echo
+	@echo "WARNING!!!"
+	@echo "This will stop and delete all containers, images and volumes related to this project."
+	@echo
+	@read -p "Press ctrl+c to abort or enter to continue." -n 1 -r
+	@docker compose -p agoras -f docker-compose.yml down \
+		--rmi all --remove-orphans --volumes
+
+cataplum:
+	@echo
+	@echo "WARNING!!!"
+	@echo "This will stop and delete all containers, images and volumes present in your system."
+	@echo
+	@read -p "Press ctrl+c to abort or enter to continue." -n 1 -r
+	@if [ -n "$(all_ps_hashes)" ]; then\
+		docker kill $(shell docker ps -q);\
+	fi
+	@docker compose -p agoras -f docker-compose.yml down \
+		--rmi all --remove-orphans --volumes
+	@docker system prune -a -f --volumes

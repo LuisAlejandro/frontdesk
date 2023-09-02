@@ -1,16 +1,14 @@
 on:
   script:
-    run: |
-      const crypto = require("crypto");
-      const id = crypto.randomBytes(16).toString("hex");
-      return [{id}]
+    every: 0 8 * * *
+
 jobs:
   musicbox:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v2
         with:
-          repository: 'jacc/music-box'
+          repository: jacc/music-box
       - run: npm install
       - uses: ./
         env:

@@ -1,12 +1,12 @@
 on:
   rss:
-    url: https://github.com/Dockershelf/dockershelf/releases.atom
+    url: https://luisalejandro.org/blog/posts/feed.xml
     config:
       limit: 1
 
 jobs:
   twitter-new-post:
-    name: New Dockershelf version to Twitter
+    name: New blog post to Twitter
     runs-on: ubuntu-22.04
     steps:
       - uses: LuisAlejandro/agoras-actions@1.1.1
@@ -18,8 +18,7 @@ jobs:
           twitter-consumer-secret: ${{ secrets.LD_TWITTER_CONSUMER_SECRET }}
           twitter-oauth-token: ${{ secrets.LD_TWITTER_OAUTH_TOKEN }}
           twitter-oauth-secret: ${{ secrets.LD_TWITTER_OAUTH_SECRET }}
-          status-text: "${{ on.rss.outputs.title }}: A new version of #dockershelf has been released! ${{ on.rss.outputs.link }}"
-          status-image-url-1: https://user-images.githubusercontent.com/324683/95548254-ae7ad600-09d2-11eb-87c2-82f6dc65bb32.png
+          status-text: "New blog post: ${{ on.rss.outputs.title }} ${{ on.rss.outputs.link }}"
 
       - uses: LuisAlejandro/agoras-actions@1.1.1
         with:
@@ -33,7 +32,7 @@ jobs:
 
 
   facebook-page-new-post:
-    name: New Dockershelf version to Facebook
+    name: New blog post to Facebook
     runs-on: ubuntu-22.04
     steps:
       - uses: LuisAlejandro/agoras-actions@1.1.1
@@ -43,12 +42,11 @@ jobs:
           action: post
           facebook-access-token: ${{ secrets.LD_FACEBOOK_ACCESS_TOKEN }}
           facebook-object-id: ${{ secrets.LD_FACEBOOK_OBJECT_ID }}
-          status-text: "${{ on.rss.outputs.title }}: A new version of #dockershelf has been released! ${{ on.rss.outputs.link }}"
-          status-image-url-1: https://user-images.githubusercontent.com/324683/95548254-ae7ad600-09d2-11eb-87c2-82f6dc65bb32.png
+          status-text: "New blog post: ${{ on.rss.outputs.title }} ${{ on.rss.outputs.link }}"
 
 
   linkedin-page-new-post:
-    name: New Dockershelf version to LinkedIn
+    name: New blog post to LinkedIn
     runs-on: ubuntu-22.04
     steps:
       - uses: LuisAlejandro/agoras-actions@1.1.1
@@ -57,12 +55,11 @@ jobs:
           network: linkedin
           action: post
           linkedin-access-token: ${{ secrets.LA_LINKEDIN_ACCESS_TOKEN }}
-          status-text: "${{ on.rss.outputs.title }}: A new version of #dockershelf has been released! ${{ on.rss.outputs.link }}"
-          status-image-url-1: https://user-images.githubusercontent.com/324683/95548254-ae7ad600-09d2-11eb-87c2-82f6dc65bb32.png
+          status-text: "New blog post: ${{ on.rss.outputs.title }} ${{ on.rss.outputs.link }}"
 
 
   instagram-page-new-post:
-    name: New Dockershelf version to LinkedIn
+    name: New blog post to LinkedIn
     runs-on: ubuntu-22.04
     steps:
       - uses: LuisAlejandro/agoras-actions@1.1.1
@@ -71,5 +68,4 @@ jobs:
           action: post
           instagram-access-token: ${{ secrets.LD_INSTAGRAM_ACCESS_TOKEN }}
           instagram-object-id: ${{ secrets.LD_INSTAGRAM_OBJECT_ID }}
-          status-text: "${{ on.rss.outputs.title }}: A new version of #dockershelf has been released! ${{ on.rss.outputs.link }}"
-          status-image-url-1: https://user-images.githubusercontent.com/324683/95548254-ae7ad600-09d2-11eb-87c2-82f6dc65bb32.png
+          status-text: "New blog post: ${{ on.rss.outputs.title }} ${{ on.rss.outputs.link }}"

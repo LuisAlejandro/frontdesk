@@ -1,9 +1,10 @@
 {
-  "name": "actionsflow-workflow-default",
+  "name": "actionsflow-workflow",
   "private": true,
   "description": "A simple workflow to get up and build quickly with Actionsflow",
   "version": "1.0.0",
-  "author": "Owen Young <theowenyoung@gmail.com>",
+  "author": "Luis Alejandro Martínez Faneyth <luis@collagelabs.org>",
+  "license": "GPL-3.0-or-later",
   "devDependencies": {
     "actionsflow": "^1.12.0"
   },
@@ -11,7 +12,6 @@
     "actionsflow",
     "workflow"
   ],
-  "license": "0BSD",
   "scripts": {
     "build": "actionsflow build",
     "start": "actionsflow start",
@@ -22,9 +22,6 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/actionsflow/actionsflow-workflow-default"
-  },
-  "bugs": {
-    "url": "https://github.com/actionsflow/actionsflow-workflow-default/issues"
+    "url": "https://github.com/LuisAlejandro/actionsflow-workflow"
   }
 }

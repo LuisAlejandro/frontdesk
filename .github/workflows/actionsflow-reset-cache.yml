@@ -1,9 +1,11 @@
 name: Reset Actionsflow Cache
+
 on:
   workflow_dispatch:
+
 jobs:
   reset:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     name: Reset Actionsflow Cache
     steps:
       - uses: actions/checkout@v2

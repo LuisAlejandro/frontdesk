@@ -1,0 +1,20 @@
+on:
+  script:
+    every: 0 10 * * 5
+
+jobs:
+  twitter-new-post:
+    name: Wakatime summary to Twitter
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: LuisAlejandro/agoras-actions@1.1.1
+        id: twitter-post
+        with:
+          network: twitter
+          action: post
+          twitter-consumer-key: ${{ secrets.LA_TWITTER_CONSUMER_KEY }}
+          twitter-consumer-secret: ${{ secrets.LA_TWITTER_CONSUMER_SECRET }}
+          twitter-oauth-token: ${{ secrets.LA_TWITTER_OAUTH_TOKEN }}
+          twitter-oauth-secret: ${{ secrets.LA_TWITTER_OAUTH_SECRET }}
+          status-text: "Esta es la cantidad de código que he escrito esta semana https://wakatime.com/@LuisAlejandro"
+          status-image-url-1: https://wakatime.com/share/@LuisAlejandro/5a56439c-b3af-44e6-8164-c0b9128872b8.png

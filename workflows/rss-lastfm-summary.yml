@@ -1,0 +1,20 @@
+on:
+  script:
+    every: 0 16 * * 5
+
+jobs:
+  twitter-new-post:
+    name: LastFM summary to Twitter
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: LuisAlejandro/agoras-actions@1.1.1
+        id: twitter-post
+        with:
+          network: twitter
+          action: post
+          twitter-consumer-key: ${{ secrets.LA_TWITTER_CONSUMER_KEY }}
+          twitter-consumer-secret: ${{ secrets.LA_TWITTER_CONSUMER_SECRET }}
+          twitter-oauth-token: ${{ secrets.LA_TWITTER_OAUTH_TOKEN }}
+          twitter-oauth-secret: ${{ secrets.LA_TWITTER_OAUTH_SECRET }}
+          status-text: "Esto es un resumen de la música que he estado escuchando esta semana https://www.last.fm/user/martinezfaneyth"
+          status-image-url-1: https://tapmusic.net/collage.php?user=martinezfaneyth&type=7day&size=3x3&caption=true
