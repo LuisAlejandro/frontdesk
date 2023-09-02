@@ -1,5 +1,9 @@
 on:
   script:
+    run: |
+      const crypto = require("crypto");
+      const id = crypto.randomBytes(16).toString("hex");
+      return [{id}]
     every: 0 16 * * 5
 
 jobs:
