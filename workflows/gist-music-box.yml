@@ -5,6 +5,7 @@ on:
       const id = crypto.randomBytes(16).toString("hex");
       return [{id}]
     every: 0 8 * * *
+    active: false
 
 jobs:
   musicbox:
