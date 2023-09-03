@@ -2,8 +2,8 @@ name: Post new Dockershelf version to social networks
 
 on:
   workflow_dispatch:
-  # schedule:
-  #   - cron: 0 * * * *
+  schedule:
+    - cron: 0 * * * *
 
 jobs:
   twitter-new-post:

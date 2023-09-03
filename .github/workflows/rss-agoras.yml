@@ -2,8 +2,8 @@ name: Post new Agoras version to social networks
 
 on:
   workflow_dispatch:
-  # schedule:
-  #   - cron: 0 * * * *
+  schedule:
+    - cron: 0 * * * *
 
 jobs:
   twitter-new-post:
@@ -47,7 +47,7 @@ jobs:
           twitter-oauth-token: ${{ secrets.LD_TWITTER_OAUTH_TOKEN }}
           twitter-oauth-secret: ${{ secrets.LD_TWITTER_OAUTH_SECRET }}
           status-text: '${{ steps.vars.outputs.title }}: A new version of #agoras has been released! ${{ steps.vars.outputs.link }}'
-          status-image-url-1: https://repository-images.githubusercontent.com/496808130/7aeca3c5-a610-4707-8c47-f2867af04a7d
+          status-image-url-1: https://user-images.githubusercontent.com/324683/265284702-adf7cd41-5771-4931-abe0-c90c8b7deb54.png
 
       - name: Posting to Twitter @LuisAlejandro
         uses: LuisAlejandro/agoras-actions@1.1.2
@@ -70,7 +70,7 @@ jobs:
           facebook-access-token: ${{ secrets.LD_FACEBOOK_ACCESS_TOKEN }}
           facebook-object-id: ${{ secrets.LD_FACEBOOK_OBJECT_ID }}
           status-text: '${{ steps.vars.outputs.title }}: A new version of #agoras has been released! ${{ steps.vars.outputs.link }}'
-          status-image-url-1: https://repository-images.githubusercontent.com/496808130/7aeca3c5-a610-4707-8c47-f2867af04a7d
+          status-image-url-1: https://user-images.githubusercontent.com/324683/265284702-adf7cd41-5771-4931-abe0-c90c8b7deb54.png
 
       - name: Posting to LinkedIn /in/martinezfaneyth
         uses: LuisAlejandro/agoras-actions@1.1.2
@@ -80,7 +80,7 @@ jobs:
           action: post
           linkedin-access-token: ${{ secrets.LA_LINKEDIN_ACCESS_TOKEN }}
           status-text: '${{ steps.vars.outputs.title }}: A new version of #agoras has been released! ${{ steps.vars.outputs.link }}'
-          status-image-url-1: https://repository-images.githubusercontent.com/496808130/7aeca3c5-a610-4707-8c47-f2867af04a7d
+          status-image-url-1: https://user-images.githubusercontent.com/324683/265284702-adf7cd41-5771-4931-abe0-c90c8b7deb54.png
 
       - name: Posting to Instagram @LuisDevelops
         uses: LuisAlejandro/agoras-actions@1.1.2
@@ -91,4 +91,4 @@ jobs:
           instagram-access-token: ${{ secrets.LD_INSTAGRAM_ACCESS_TOKEN }}
           instagram-object-id: ${{ secrets.LD_INSTAGRAM_OBJECT_ID }}
           status-text: '${{ steps.vars.outputs.title }}: A new version of #agoras has been released! ${{ steps.vars.outputs.link }}'
-          status-image-url-1: https://repository-images.githubusercontent.com/496808130/7aeca3c5-a610-4707-8c47-f2867af04a7d
+          status-image-url-1: https://user-images.githubusercontent.com/324683/265284702-adf7cd41-5771-4931-abe0-c90c8b7deb54.png
