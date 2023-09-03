@@ -39,7 +39,7 @@ runs:
       id: frontdesk-cache
       with:
         path: .frontdesk
-        key: ${{ runner.os }}-frontdesk-${{ runner.arch }}
+        key: ${{ runner.os }}-frontdesk-${{ inputs.name }}-${{ runner.arch }}
 
     - name: Install dependencies
       shell: bash
