@@ -72,18 +72,6 @@
   resolved "https://registry.npmjs.org/@tsconfig/node16/-/node16-1.0.4.tgz"
   integrity sha512-vxhUy4J8lyeyinH7Azl1pdd43GJhZH/tP2weN8TntQblOY+A0XbT8DJk1/oCPuOOyg/Ja757rG0CgHcWC8OfMA==
 
-"@types/cache-manager-fs-hash@^0.0.1":
-  version "0.0.1"
-  resolved "https://registry.npmjs.org/@types/cache-manager-fs-hash/-/cache-manager-fs-hash-0.0.1.tgz"
-  integrity sha512-bH2ZKaEq8dj752pf4VC1tDBywidaV6kyvVr3GxD017kQ7DhpV53UNDvy3bFxA86LP46QJKSHmSdZeQtM15yTlQ==
-  dependencies:
-    "@types/cache-manager" "*"
-
-"@types/cache-manager@*":
-  version "4.0.2"
-  resolved "https://registry.npmjs.org/@types/cache-manager/-/cache-manager-4.0.2.tgz"
-  integrity sha512-fT5FMdzsiSX0AbgnS5gDvHl2Nco0h5zYyjwDQy4yPC7Ww6DeGMVKPRqIZtg9HOXDV2kkc18SL1B0N8f0BecrCA==
-
 "@types/node@^18":
   version "18.17.13"
   resolved "https://registry.npmjs.org/@types/node/-/node-18.17.13.tgz"
@@ -140,6 +128,11 @@ diff@^4.0.1:
   version "4.0.2"
   resolved "https://registry.npmjs.org/diff/-/diff-4.0.2.tgz"
   integrity sha512-58lmxKSA4BNyLz+HHMUzlOEpg09FV+ev6ZMe3vJihgdxzgcwZ8VoEEPmALCZG9LmqfVoNMMKpttIYTVG6uDY7A==
+
+dotenv@^16.3.1:
+  version "16.3.1"
+  resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-16.3.1.tgz#369034de7d7e5b120972693352a3bf112172cc3e"
+  integrity sha512-IPzF4w4/Rd94bA9imS68tZBaYyBWSCE47V1RGuMrB94iyTOIEwRmVL2x/4An+6mETpLrKJ5hQkB8W4kFAadeIQ==
 
 fast-xml-parser@^4.2.7:
   version "4.2.7"

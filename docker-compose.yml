@@ -6,7 +6,7 @@ services:
       context: .
       dockerfile: Dockerfile
     volumes:
-      - .:/home/luisalejandro/app
-      - ~/Library/Caches/Yarn:/home/luisalejandro/.cache/yarn
+      - .:/home/frontdesk/app
+      - ~/Library/Caches/Yarn:/home/frontdesk/.cache/yarn
     env_file:
       - .env

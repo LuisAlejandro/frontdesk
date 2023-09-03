@@ -6,7 +6,7 @@ all_ps_hashes = $(shell docker ps -q)
 img_hash = $(shell docker images -q luisalejandro/frontdesk:latest)
 exec_on_docker = docker compose \
 	-p frontdesk -f docker-compose.yml exec \
-	--user luisalejandro app
+	--user frontdesk app
 
 
 image:

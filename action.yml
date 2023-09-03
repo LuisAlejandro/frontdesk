@@ -6,24 +6,71 @@ branding:
   color: white
 
 inputs:
-  feed-url:
+  name:
+    description: Name of the feed
+    required: true
+  feed_url:
     description: URL of the feed to fetch
     required: true
-  max-entries:
+  max_entries:
     description: Max number of entries to fetch since last run
     required: false
-    default: "1"
+    default: '1'
 
 runs:
   using: composite
   steps:
-    - name: Checkout repo
-      uses: actions/checkout@v3
+    - name: Setup Node
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+        cache: yarn
+
+    - name: Restoring node_modules cache
+      uses: actions/cache@v3
+      id: node-cache
+      with:
+        path: node_modules
+        key: ${{ runner.os }}-node-modules-${{ runner.arch }}-${{ hashFiles('yarn.lock') }}
+        restore-keys: ${{ runner.os }}-node-modules-${{ runner.arch }}-
+
+    - name: Restoring frontdesk cache
+      uses: actions/cache/restore@v3
+      id: frontdesk-cache
+      with:
+        path: .frontdesk
+        key: ${{ runner.os }}-frontdesk-${{ runner.arch }}
+
+    - name: Install dependencies
+      shell: bash
+      if: steps.node-cache.outputs.cache-hit != 'true'
+      run: yarn install
 
     - name: Last entries from RSS feed
       shell: bash
       id: entries
-      run: ts-node ${{ github.action_path }}/src/index.ts
+      run: yarn run last-rss-entries
+      env:
+        INPUT_NAME: ${{ inputs.name }}
+        INPUT_FEED_URL: ${{ inputs.feed_url }}
+        INPUT_MAX_ENTRIES: ${{ inputs.max_entries }}
+
+    - name: Clear stored cache (workaround)
+      if: ${{ steps.frontdesk-cache.outputs.cache-hit }}
+      shell: bash
+      env:
+        GH_TOKEN: ${{ github.token }}
+        KEY: ${{ steps.frontdesk-cache.outputs.cache-primary-key }}
+      run: |
+        gh extension install actions/gh-actions-cache
+        gh actions-cache delete $KEY --confirm
+      continue-on-error: true
+
+    - name: Saving frontdesk cache
+      uses: actions/cache/save@v3
+      with:
+        path: .frontdesk
+        key: ${{ steps.frontdesk-cache.outputs.cache-primary-key }}
 
 outputs:
   result:

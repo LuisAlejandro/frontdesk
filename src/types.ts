@@ -1,4 +1,4 @@
-import { FeedEntry } from '@extractus/feed-extractor';
+import { Store } from 'cache-manager';
 
 export type TimestampInMiliseconds = number;
 
@@ -22,6 +22,14 @@ export type Enclosure = {
   type?: string;
 };
 
+interface FeedEntry {
+  id: string;
+  link?: string;
+  title?: string;
+  description?: string;
+  published?: Date;
+}
+
 export type FeedItem = Omit<FeedEntry, 'published'> & {
   [key: string]: unknown;
   published: TimestampInMiliseconds;
@@ -29,3 +37,25 @@ export type FeedItem = Omit<FeedEntry, 'published'> & {
   [ExtraEntryField.pubDate]?: string;
   [ExtraEntryField.enclosure]?: Enclosure;
 };
+
+export interface ICacheProperties {
+  name?: string;
+  store?: Store;
+}
+
+interface FsHashStoreOptions {
+  path?: string | undefined;
+  ttl?: number | undefined;
+  maxsize?: number | undefined;
+  subdirs?: boolean | undefined;
+  zip?: boolean | undefined;
+}
+
+interface FsHashStoreConstructor {
+  create: (config: FsHashStoreConfig) => Store;
+}
+
+export interface FsHashStoreConfig {
+  store: FsHashStoreConstructor;
+  options?: FsHashStoreOptions | undefined;
+}

@@ -1,23 +1,23 @@
 import path from 'path';
 import fs from 'fs';
-import cacheManager, { Store, CachingConfig, MultiCache } from 'cache-manager';
+import { caching, Store, Cache as BaseCache } from 'cache-manager';
 import fsStore from 'cache-manager-fs-hash';
 
 import { CACHE_PATH, MAX_CACHE_SIZE, TTL } from './constants';
-
-interface ICacheProperties {
-  name?: string;
-  store?: Store;
-}
+import { FsHashStoreConfig, ICacheProperties } from './types';
 
 export class Cache {
   public name: string;
   public store: Store;
-  public cache?: MultiCache;
+  public cache?: BaseCache;
 
   constructor({ name, store }: ICacheProperties = {}) {
-    this.name = name || 'cache';
-    this.store = store || fsStore.create({ store: fsStore });
+    if (!name) {
+      throw new Error('Cache name is required');
+    }
+
+    this.name = name;
+    this.store = store;
   }
 
   get directory(): string {
@@ -29,20 +29,23 @@ export class Cache {
       fs.mkdirSync(this.directory, { recursive: true });
     }
 
-    const memoryCache = await cacheManager.caching('memory', {
-      max: MAX_CACHE_SIZE,
-      ttl: TTL,
-    });
+    if (this.cache) {
+      return this;
+    }
 
-    const fsCache = cacheManager.caching({
-      store: this.store,
-      options: {
-        path: this.directory,
-        ttl: TTL,
-      },
-    });
+    if (!this.store) {
+      const storeOptions: FsHashStoreConfig = {
+        store: fsStore,
+        options: {
+          path: this.directory,
+          maxsize: MAX_CACHE_SIZE,
+          ttl: TTL,
+        },
+      };
+      this.store = storeOptions.store.create(storeOptions);
+    }
 
-    this.cache = cacheManager.multiCaching([memoryCache, fsCache]);
+    this.cache = await caching(this.store);
 
     return this;
   }
@@ -61,22 +64,21 @@ export class Cache {
     return this.cache.set(key, value);
   }
 
-  del<T = unknown>(key: string): Promise<void> {
+  del(key: string): Promise<void> {
     if (!this.cache) {
       throw new Error(`Cache wasn't initialised yet, please run the init method first`);
     }
     return this.cache.del(key);
   }
 
-  reset<T = unknown>(): Promise<void> {
+  async reset(): Promise<void> {
     if (!this.cache) {
       throw new Error(`Cache wasn't initialised yet, please run the init method first`);
     }
-    return this.cache.reset().then(() => {
-      if (fs.existsSync(this.directory)) {
-        fs.rmSync(this.directory, { recursive: true, force: true });
-      }
-    });
+    await this.cache.reset();
+    if (fs.existsSync(this.directory)) {
+      fs.rmSync(this.directory, { recursive: true, force: true });
+    }
   }
 }
 

@@ -1,4 +1,4 @@
-import { extract } from '@extractus/feed-extractor';
+const FeedExtractor = import('@extractus/feed-extractor');
 
 import { FeedItem } from './types';
 import { getExtraEntryFields } from './utils';
@@ -6,12 +6,12 @@ import { logger } from './logger';
 
 export class Feed {
   url: string;
-
   private items: FeedItem[] | undefined;
 
   constructor(url: string) {
-    logger.info(`Setting up feed: ${url}`);
-
+    if (!url) {
+      throw new Error('Feed URL is required');
+    }
     this.url = url;
     this.items = undefined;
   }
@@ -19,6 +19,7 @@ export class Feed {
   private async extract() {
     logger.debug(`Extracting feed: ${this.url}`);
 
+    const { extract } = await FeedExtractor;
     const items = (
       await extract(this.url, {
         descriptionMaxLen: 999999,
@@ -45,7 +46,7 @@ export class Feed {
   }
 
   private orderItems = (items: FeedItem[]) => {
-    return items.sort((first: FeedItem, second: FeedItem) => second.published - first.published);
+    return items.sort((first: FeedItem, second: FeedItem) => first.published - second.published);
   };
 
   private async getOrderedItems() {

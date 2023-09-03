@@ -1,15 +1,14 @@
 name: Post LastFM summary to Twitter
 
 on:
-  workflow_dispatch:
-  # schedule:
-  #   - cron: 0 16 * * 5
+  schedule:
+    - cron: 0 16 * * 5
 
 jobs:
   twitter-new-post:
     runs-on: ubuntu-22.04
     steps:
-      - uses: LuisAlejandro/agoras-actions@1.1.1
+      - uses: LuisAlejandro/agoras-actions@1.1.2
         id: twitter-post
         with:
           network: twitter
