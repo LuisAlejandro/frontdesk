@@ -3,14 +3,14 @@
 
 SHELL = bash -e
 all_ps_hashes = $(shell docker ps -q)
-img_hash = $(shell docker images -q luisalejandro/actionsflow-workflow:latest)
+img_hash = $(shell docker images -q luisalejandro/frontdesk:latest)
 exec_on_docker = docker compose \
-	-p actionsflow -f docker-compose.yml exec \
+	-p frontdesk -f docker-compose.yml exec \
 	--user luisalejandro app
 
 
 image:
-	@docker compose -p actionsflow -f docker-compose.yml build \
+	@docker compose -p frontdesk -f docker-compose.yml build \
 		--build-arg UID=$(shell id -u) \
 		--build-arg GID=$(shell id -g)
 
@@ -18,29 +18,23 @@ start:
 	@if [ -z "$(img_hash)" ]; then\
 		make image;\
 	fi
-	@docker compose -p actionsflow -f docker-compose.yml up \
+	@docker compose -p frontdesk -f docker-compose.yml up \
 		--remove-orphans --no-build --detach
 
 dependencies: start
 	@$(exec_on_docker) yarn install
 
-build: start
-	@$(exec_on_docker) yarn run build
-
-clean: start
-	@$(exec_on_docker) yarn run clean
-
-serve: start
-	@$(exec_on_docker) yarn dev
+run: start
+	@$(exec_on_docker) yarn run last-rss-entries
 
 console: start
 	@$(exec_on_docker) bash
 
 stop:
-	@docker-compose -p actionsflow -f docker-compose.yml stop app
+	@docker-compose -p frontdesk -f docker-compose.yml stop app
 
 down:
-	@docker-compose -p actionsflow -f docker-compose.yml down \
+	@docker-compose -p frontdesk -f docker-compose.yml down \
 		--remove-orphans
 
 destroy:

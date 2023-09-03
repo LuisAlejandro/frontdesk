@@ -1,0 +1,31 @@
+name: Last entries from RSS feed
+description: Returns the last entries from an RSS feed since last run
+
+branding:
+  icon: share-2
+  color: white
+
+inputs:
+  feed-url:
+    description: URL of the feed to fetch
+    required: true
+  max-entries:
+    description: Max number of entries to fetch since last run
+    required: false
+    default: "1"
+
+runs:
+  using: composite
+  steps:
+    - name: Checkout repo
+      uses: actions/checkout@v3
+
+    - name: Last entries from RSS feed
+      shell: bash
+      id: entries
+      run: ts-node ${{ github.action_path }}/src/index.ts
+
+outputs:
+  result:
+    description: Stringified json object with feed entries
+    value: ${{ steps.entries.outputs.result }}

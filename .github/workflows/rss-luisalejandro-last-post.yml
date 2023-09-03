@@ -1,8 +1,15 @@
+# on:
+#   rss:
+#     url: https://luisalejandro.org/blog/posts/feed.xml
+#     config:
+#       limit: 1
+
+name: Post new blog post to social networks
+
 on:
-  rss:
-    url: https://luisalejandro.org/blog/posts/feed.xml
-    config:
-      limit: 1
+  workflow_dispatch:
+  # schedule:
+  #   - cron: 0 * * * *
 
 jobs:
   twitter-new-post:

@@ -1,8 +1,15 @@
+# on:
+#   rss:
+#     url: https://github.com/Dockershelf/dockershelf/releases.atom
+#     config:
+#       limit: 1
+
+name: Post new Dockershelf version to social networks
+
 on:
-  rss:
-    url: https://github.com/Dockershelf/dockershelf/releases.atom
-    config:
-      limit: 1
+  workflow_dispatch:
+  # schedule:
+  #   - cron: 0 * * * *
 
 jobs:
   twitter-new-post:

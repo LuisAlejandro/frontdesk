@@ -1,8 +1,9 @@
 name: Update Movie Box gist
 
 on:
-  schedule:
-    - cron: 0 8 * * *
+  workflow_dispatch:
+  # schedule:
+  #   - cron: 0 8 * * *
 
 jobs:
   moviebox:

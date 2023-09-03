@@ -1,14 +1,12 @@
+name: Post Wakatime summary to Twitter
+
 on:
-  script:
-    run: |
-      const crypto = require("crypto");
-      const id = crypto.randomBytes(16).toString("hex");
-      return [{id}]
-    every: 0 10 * * 5
+  workflow_dispatch:
+  # schedule:
+  #   - cron: 0 10 * * 5
 
 jobs:
   twitter-new-post:
-    name: Wakatime summary to Twitter
     runs-on: ubuntu-22.04
     steps:
       - uses: LuisAlejandro/agoras-actions@1.1.1

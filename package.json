@@ -1,27 +1,23 @@
 {
-  "name": "actionsflow-workflow",
+  "name": "frontdesk",
   "private": true,
-  "description": "A simple workflow to get up and build quickly with Actionsflow",
+  "description": "An automation workflow for common tasks",
   "version": "1.0.0",
-  "author": "Luis Alejandro Martínez Faneyth <luis@collagelabs.org>",
+  "author": "Luis Alejandro Martínez Faneyth <luis@luisalejandro.org>",
   "license": "GPL-3.0-or-later",
+  "dependencies": {
+    "@actions/core": "^1.10.0",
+    "@extractus/feed-extractor": "^7.0.5",
+    "cache-manager": "^5.2.3",
+    "cache-manager-fs-hash": "^1.0.0"
+  },
   "devDependencies": {
-    "actionsflow": "^1.12.0"
+    "@types/cache-manager-fs-hash": "^0.0.1",
+    "@types/node": "^18",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.2.2"
   },
-  "keywords": [
-    "actionsflow",
-    "workflow"
-  ],
   "scripts": {
-    "build": "actionsflow build",
-    "start": "actionsflow start",
-    "watch": "actionsflow start -w",
-    "act": "act --workflows ./dist/workflows --secret-file ./dist/.secrets --eventpath ./dist/event.json --env-file ./dist/.env -P ubuntu-latest=actionsflow/act-environment:v1 -P ubuntu-22.04=actionsflow/act-environment:v1",
-    "clean": "actionsflow clean",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/LuisAlejandro/actionsflow-workflow"
+    "last-rss-entries": "ts-node src/index.ts"
   }
 }

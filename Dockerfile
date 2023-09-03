@@ -22,17 +22,17 @@ RUN EXISTUSER=$(getent passwd | awk -F':' '$3 == '$UID' {print $1}') && \
 RUN EXISTGROUP=$(getent group | awk -F':' '$3 == '$GID' {print $1}') && \
     [ -n "${EXISTGROUP}" ] && delgroup ${EXISTGROUP} || true
 
-RUN groupadd -g "${GID}" luisalejandro || true
-RUN useradd -u "${UID}" -g "${GID}" -ms /bin/bash luisalejandro
+RUN groupadd -g "${GID}" frontdesk || true
+RUN useradd -u "${UID}" -g "${GID}" -ms /bin/bash frontdesk
 
-RUN echo "luisalejandro ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/luisalejandro
+RUN echo "frontdesk ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/frontdesk
 
-USER luisalejandro
+USER frontdesk
 
 RUN mkdir -p \
-    /home/luisalejandro/app \
-    /home/luisalejandro/.cache/yarn
+    /home/frontdesk/app \
+    /home/frontdesk/.cache/yarn
 
-WORKDIR /home/luisalejandro/app
+WORKDIR /home/frontdesk/app
 
 CMD tail -f /dev/null

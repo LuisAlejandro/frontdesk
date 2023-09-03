@@ -1,75 +1,114 @@
+name: Post new Agoras version to social networks
+
 on:
-  rss:
-    url: https://github.com/LuisAlejandro/agoras/releases.atom
-    config:
-      limit: 1
+  workflow_dispatch:
+  # schedule:
+  #   - cron: 0 * * * *
 
 jobs:
   twitter-new-post:
     name: New Agoras version to Twitter
     runs-on: ubuntu-22.04
     steps:
-      - uses: LuisAlejandro/agoras-actions@1.1.1
-        id: twitter-post
+      - uses: actions/checkout@v3
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
         with:
-          network: twitter
-          action: post
-          twitter-consumer-key: ${{ secrets.LD_TWITTER_CONSUMER_KEY }}
-          twitter-consumer-secret: ${{ secrets.LD_TWITTER_CONSUMER_SECRET }}
-          twitter-oauth-token: ${{ secrets.LD_TWITTER_OAUTH_TOKEN }}
-          twitter-oauth-secret: ${{ secrets.LD_TWITTER_OAUTH_SECRET }}
-          status-text: "${{ on.rss.outputs.title }}: A new version of #agoras has been released! ${{ on.rss.outputs.link }}"
-          status-image-url-1: https://repository-images.githubusercontent.com/496808130/7aeca3c5-a610-4707-8c47-f2867af04a7d
+          node-version: '18'
+          cache: yarn
 
-      - uses: LuisAlejandro/agoras-actions@1.1.1
+      - name: Restoring node_modules cache
+        uses: actions/cache@v3
+        id: node-cache
         with:
-          network: twitter
-          action: post
-          twitter-consumer-key: ${{ secrets.LA_TWITTER_CONSUMER_KEY }}
-          twitter-consumer-secret: ${{ secrets.LA_TWITTER_CONSUMER_SECRET }}
-          twitter-oauth-token: ${{ secrets.LA_TWITTER_OAUTH_TOKEN }}
-          twitter-oauth-secret: ${{ secrets.LA_TWITTER_OAUTH_SECRET }}
-          status-text: "https://twitter.com/LuisDevelops/status/${{ steps.twitter-post.outputs.result }}"
+          path: node_modules
+          key: ${{ runner.os }}-node-modules-${{ runner.arch }}-${{ hashFiles('yarn.lock') }}
+          restore-keys: ${{ runner.os }}-node-modules-${{ runner.arch }}-
 
-
-  facebook-page-new-post:
-    name: New Agoras version to Facebook
-    runs-on: ubuntu-22.04
-    steps:
-      - uses: LuisAlejandro/agoras-actions@1.1.1
-        id: facebook-post
+      - name: Restoring frontdesk cache
+        uses: actions/cache/restore@v3
+        id: frontdesk-cache
         with:
-          network: facebook
-          action: post
-          facebook-access-token: ${{ secrets.LD_FACEBOOK_ACCESS_TOKEN }}
-          facebook-object-id: ${{ secrets.LD_FACEBOOK_OBJECT_ID }}
-          status-text: "${{ on.rss.outputs.title }}: A new version of #agoras has been released! ${{ on.rss.outputs.link }}"
-          status-image-url-1: https://repository-images.githubusercontent.com/496808130/7aeca3c5-a610-4707-8c47-f2867af04a7d
+          path: .frontdesk
+          key: ${{ runner.os }}-frontdesk-${{ runner.arch }}
 
+      - name: Generate Prime Numbers
+        if: steps.node-primes.outputs.cache-hit != 'true'
+        run: yarn install
 
-  linkedin-page-new-post:
-    name: New Agoras version to LinkedIn
-    runs-on: ubuntu-22.04
-    steps:
-      - uses: LuisAlejandro/agoras-actions@1.1.1
-        id: linkedin-post
+      - uses: ./
+        id: rss
         with:
-          network: linkedin
-          action: post
-          linkedin-access-token: ${{ secrets.LA_LINKEDIN_ACCESS_TOKEN }}
-          status-text: "${{ on.rss.outputs.title }}: A new version of #agoras has been released! ${{ on.rss.outputs.link }}"
-          status-image-url-1: https://repository-images.githubusercontent.com/496808130/7aeca3c5-a610-4707-8c47-f2867af04a7d
+          feed-url: https://github.com/LuisAlejandro/agoras/releases.atom
+          max-entries: 1
 
+      - run: echo "${{ steps.rss.outputs.result }}"
 
-  instagram-page-new-post:
-    name: New Agoras version to LinkedIn
-    runs-on: ubuntu-22.04
-    steps:
-      - uses: LuisAlejandro/agoras-actions@1.1.1
+      - name: Saving frontdesk cache
+        uses: actions/cache/save@v3
         with:
-          network: instagram
-          action: post
-          instagram-access-token: ${{ secrets.LD_INSTAGRAM_ACCESS_TOKEN }}
-          instagram-object-id: ${{ secrets.LD_INSTAGRAM_OBJECT_ID }}
-          status-text: "${{ on.rss.outputs.title }}: A new version of #agoras has been released! ${{ on.rss.outputs.link }}"
-          status-image-url-1: https://repository-images.githubusercontent.com/496808130/7aeca3c5-a610-4707-8c47-f2867af04a7d
+          path: .frontdesk
+          key: ${{ steps.frontdesk-cache.outputs.cache-primary-key }}
+
+  #     - uses: LuisAlejandro/agoras-actions@1.1.1
+  #       id: twitter-post
+  #       with:
+  #         network: twitter
+  #         action: post
+  #         twitter-consumer-key: ${{ secrets.LD_TWITTER_CONSUMER_KEY }}
+  #         twitter-consumer-secret: ${{ secrets.LD_TWITTER_CONSUMER_SECRET }}
+  #         twitter-oauth-token: ${{ secrets.LD_TWITTER_OAUTH_TOKEN }}
+  #         twitter-oauth-secret: ${{ secrets.LD_TWITTER_OAUTH_SECRET }}
+  #         status-text: "${{ on.rss.outputs.title }}: A new version of #agoras has been released! ${{ on.rss.outputs.link }}"
+  #         status-image-url-1: https://repository-images.githubusercontent.com/496808130/7aeca3c5-a610-4707-8c47-f2867af04a7d
+
+  #     - uses: LuisAlejandro/agoras-actions@1.1.1
+  #       with:
+  #         network: twitter
+  #         action: post
+  #         twitter-consumer-key: ${{ secrets.LA_TWITTER_CONSUMER_KEY }}
+  #         twitter-consumer-secret: ${{ secrets.LA_TWITTER_CONSUMER_SECRET }}
+  #         twitter-oauth-token: ${{ secrets.LA_TWITTER_OAUTH_TOKEN }}
+  #         twitter-oauth-secret: ${{ secrets.LA_TWITTER_OAUTH_SECRET }}
+  #         status-text: "https://twitter.com/LuisDevelops/status/${{ steps.twitter-post.outputs.result }}"
+
+  # facebook-page-new-post:
+  #   name: New Agoras version to Facebook
+  #   runs-on: ubuntu-22.04
+  #   steps:
+  #     - uses: LuisAlejandro/agoras-actions@1.1.1
+  #       id: facebook-post
+  #       with:
+  #         network: facebook
+  #         action: post
+  #         facebook-access-token: ${{ secrets.LD_FACEBOOK_ACCESS_TOKEN }}
+  #         facebook-object-id: ${{ secrets.LD_FACEBOOK_OBJECT_ID }}
+  #         status-text: "${{ on.rss.outputs.title }}: A new version of #agoras has been released! ${{ on.rss.outputs.link }}"
+  #         status-image-url-1: https://repository-images.githubusercontent.com/496808130/7aeca3c5-a610-4707-8c47-f2867af04a7d
+
+  # linkedin-page-new-post:
+  #   name: New Agoras version to LinkedIn
+  #   runs-on: ubuntu-22.04
+  #   steps:
+  #     - uses: LuisAlejandro/agoras-actions@1.1.1
+  #       id: linkedin-post
+  #       with:
+  #         network: linkedin
+  #         action: post
+  #         linkedin-access-token: ${{ secrets.LA_LINKEDIN_ACCESS_TOKEN }}
+  #         status-text: "${{ on.rss.outputs.title }}: A new version of #agoras has been released! ${{ on.rss.outputs.link }}"
+  #         status-image-url-1: https://repository-images.githubusercontent.com/496808130/7aeca3c5-a610-4707-8c47-f2867af04a7d
+
+  # instagram-page-new-post:
+  #   name: New Agoras version to LinkedIn
+  #   runs-on: ubuntu-22.04
+  #   steps:
+  #     - uses: LuisAlejandro/agoras-actions@1.1.1
+  #       with:
+  #         network: instagram
+  #         action: post
+  #         instagram-access-token: ${{ secrets.LD_INSTAGRAM_ACCESS_TOKEN }}
+  #         instagram-object-id: ${{ secrets.LD_INSTAGRAM_OBJECT_ID }}
+  #         status-text: "${{ on.rss.outputs.title }}: A new version of #agoras has been released! ${{ on.rss.outputs.link }}"
+  #         status-image-url-1: https://repository-images.githubusercontent.com/496808130/7aeca3c5-a610-4707-8c47-f2867af04a7d
