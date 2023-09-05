@@ -17,5 +17,5 @@ jobs:
           twitter-consumer-secret: ${{ secrets.LA_TWITTER_CONSUMER_SECRET }}
           twitter-oauth-token: ${{ secrets.LA_TWITTER_OAUTH_TOKEN }}
           twitter-oauth-secret: ${{ secrets.LA_TWITTER_OAUTH_SECRET }}
-          status-text: "Según last.fm, esto es la música que he estado escuchando esta semana https://www.last.fm/user/martinezfaneyth"
+          status-text: 'Según last.fm, esto es la música que he estado escuchando esta semana https://www.last.fm/user/martinezfaneyth'
           status-image-url-1: https://tapmusic.net/collage.php?user=martinezfaneyth&type=7day&size=3x3&caption=true

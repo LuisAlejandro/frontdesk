@@ -17,5 +17,5 @@ jobs:
           twitter-consumer-secret: ${{ secrets.LA_TWITTER_CONSUMER_SECRET }}
           twitter-oauth-token: ${{ secrets.LA_TWITTER_OAUTH_TOKEN }}
           twitter-oauth-secret: ${{ secrets.LA_TWITTER_OAUTH_SECRET }}
-          status-text: "Según wakatime.com, esta es la cantidad de código que he escrito esta semana https://wakatime.com/@LuisAlejandro"
+          status-text: 'Según wakatime.com, esta es la cantidad de código que he escrito esta semana https://wakatime.com/@LuisAlejandro'
           status-image-url-1: https://wakatime.com/share/@LuisAlejandro/5a56439c-b3af-44e6-8164-c0b9128872b8.png

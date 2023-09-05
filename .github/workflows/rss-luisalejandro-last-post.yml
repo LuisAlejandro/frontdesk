@@ -50,7 +50,7 @@ jobs:
           twitter-consumer-secret: ${{ secrets.LD_TWITTER_CONSUMER_SECRET }}
           twitter-oauth-token: ${{ secrets.LD_TWITTER_OAUTH_TOKEN }}
           twitter-oauth-secret: ${{ secrets.LD_TWITTER_OAUTH_SECRET }}
-          status-text: "Nuevo artículo: ${{ steps.vars.outputs.title }} ${{ steps.vars.outputs.link }}"
+          status-text: 'Nuevo artículo: ${{ steps.vars.outputs.title }} ${{ steps.vars.outputs.link }}'
 
       - name: Posting to Twitter @LuisAlejandro
         uses: LuisAlejandro/agoras-actions@1.1.2
@@ -62,8 +62,7 @@ jobs:
           twitter-consumer-secret: ${{ secrets.LA_TWITTER_CONSUMER_SECRET }}
           twitter-oauth-token: ${{ secrets.LA_TWITTER_OAUTH_TOKEN }}
           twitter-oauth-secret: ${{ secrets.LA_TWITTER_OAUTH_SECRET }}
-          status-text: "https://twitter.com/LuisDevelops/status/${{ steps.twitter-post.outputs.result }}"
-
+          status-text: 'https://twitter.com/LuisDevelops/status/${{ steps.twitter-post.outputs.result }}'
 
       - name: Posting to Facebook @LuisDevelops
         uses: LuisAlejandro/agoras-actions@1.1.2
@@ -73,8 +72,8 @@ jobs:
           action: post
           facebook-access-token: ${{ secrets.LD_FACEBOOK_ACCESS_TOKEN }}
           facebook-object-id: ${{ secrets.LD_FACEBOOK_OBJECT_ID }}
-          status-text: "Nuevo artículo: ${{ steps.vars.outputs.title }} ${{ steps.vars.outputs.link }}"
-
+          status-text: 'Nuevo artículo: ${{ steps.vars.outputs.title }}'
+          status-link: ${{ steps.vars.outputs.link }}
 
       - name: Posting to LinkedIn /in/martinezfaneyth
         uses: LuisAlejandro/agoras-actions@1.1.2
@@ -83,7 +82,8 @@ jobs:
           network: linkedin
           action: post
           linkedin-access-token: ${{ secrets.LA_LINKEDIN_ACCESS_TOKEN }}
-          status-text: "Nuevo artículo: ${{ steps.vars.outputs.title }} ${{ steps.vars.outputs.link }}"
+          status-text: 'Nuevo artículo: ${{ steps.vars.outputs.title }}'
+          status-link: ${{ steps.vars.outputs.link }}
 
       - name: Posting to Instagram @LuisDevelops
         uses: LuisAlejandro/agoras-actions@1.1.2
@@ -93,5 +93,5 @@ jobs:
           action: post
           instagram-access-token: ${{ secrets.LD_INSTAGRAM_ACCESS_TOKEN }}
           instagram-object-id: ${{ secrets.LD_INSTAGRAM_OBJECT_ID }}
-          status-text: "Nuevo artículo: ${{ steps.vars.outputs.title }} ${{ steps.vars.outputs.link }}"
+          status-text: 'Nuevo artículo: ${{ steps.vars.outputs.title }} ${{ steps.vars.outputs.link }}'
           status-image-url-1: ${{ steps.vars.outputs.image }}
