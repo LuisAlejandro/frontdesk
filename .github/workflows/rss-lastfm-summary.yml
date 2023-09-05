@@ -2,7 +2,7 @@ name: Post LastFM summary to Twitter
 
 on:
   schedule:
-    - cron: 0 16 * * 5
+    - cron: 0 20 * * 5
 
 jobs:
   twitter-new-post:

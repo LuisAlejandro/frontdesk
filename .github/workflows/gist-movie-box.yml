@@ -2,7 +2,7 @@ name: Update Movie Box gist
 
 on:
   schedule:
-    - cron: 0 8 * * *
+    - cron: 0 0 * * 0
 
 jobs:
   moviebox:

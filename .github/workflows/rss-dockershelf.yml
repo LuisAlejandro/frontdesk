@@ -2,7 +2,7 @@ name: Post new Dockershelf version to social networks
 
 on:
   schedule:
-    - cron: 0 7,12,18 * * *
+    - cron: 0 12,15,20 * * *
 
 jobs:
   twitter-new-post:
