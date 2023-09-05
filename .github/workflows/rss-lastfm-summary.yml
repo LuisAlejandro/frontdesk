@@ -8,7 +8,7 @@ jobs:
   twitter-new-post:
     runs-on: ubuntu-22.04
     steps:
-      - uses: LuisAlejandro/agoras-actions@1.1.2
+      - uses: LuisAlejandro/agoras-actions@1.1.3
         id: twitter-post
         with:
           network: twitter

@@ -40,7 +40,7 @@ jobs:
           fi
 
       - name: Posting to Twitter @LuisDevelops
-        uses: LuisAlejandro/agoras-actions@1.1.2
+        uses: LuisAlejandro/agoras-actions@1.1.3
         if: steps.vars.outputs.publish == 'yes'
         id: twitter-post
         with:
@@ -53,7 +53,7 @@ jobs:
           status-text: 'Nuevo artículo: ${{ steps.vars.outputs.title }} ${{ steps.vars.outputs.link }}'
 
       - name: Posting to Twitter @LuisAlejandro
-        uses: LuisAlejandro/agoras-actions@1.1.2
+        uses: LuisAlejandro/agoras-actions@1.1.3
         if: steps.vars.outputs.publish == 'yes'
         with:
           network: twitter
@@ -65,7 +65,7 @@ jobs:
           status-text: 'https://twitter.com/LuisDevelops/status/${{ steps.twitter-post.outputs.result }}'
 
       - name: Posting to Facebook @LuisDevelops
-        uses: LuisAlejandro/agoras-actions@1.1.2
+        uses: LuisAlejandro/agoras-actions@1.1.3
         if: steps.vars.outputs.publish == 'yes'
         with:
           network: facebook
@@ -76,7 +76,7 @@ jobs:
           status-link: ${{ steps.vars.outputs.link }}
 
       - name: Posting to LinkedIn /in/martinezfaneyth
-        uses: LuisAlejandro/agoras-actions@1.1.2
+        uses: LuisAlejandro/agoras-actions@1.1.3
         if: steps.vars.outputs.publish == 'yes'
         with:
           network: linkedin
@@ -86,7 +86,7 @@ jobs:
           status-link: ${{ steps.vars.outputs.link }}
 
       - name: Posting to Instagram @LuisDevelops
-        uses: LuisAlejandro/agoras-actions@1.1.2
+        uses: LuisAlejandro/agoras-actions@1.1.3
         if: steps.vars.outputs.publish == 'yes'
         with:
           network: instagram
