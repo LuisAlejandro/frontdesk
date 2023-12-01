@@ -1,0 +1,14 @@
+name: Post Twitch status update
+
+on:
+  repository_dispatch:
+    types: stream-online
+
+jobs:
+  stream-online:
+    name: Stream is online
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Test
+        run: |
+          echo "TEST"

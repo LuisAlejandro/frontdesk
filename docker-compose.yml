@@ -8,5 +8,6 @@ services:
     volumes:
       - .:/home/frontdesk/app
       - ~/Library/Caches/Yarn:/home/frontdesk/.cache/yarn
+      - "~/Library/Application\ Support/twitch-cli:/home/frontdesk/.config/twitch-cli"
     env_file:
       - .env

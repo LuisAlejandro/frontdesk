@@ -5,7 +5,13 @@ ARG UID=1000
 ARG GID=1000
 
 RUN apt-get update && \
-    apt-get install gnupg dirmngr sudo
+    apt-get install gnupg dirmngr sudo wget
+
+RUN wget https://github.com/twitchdev/twitch-cli/releases/download/v1.1.21/twitch-cli_1.1.21_Linux_arm64.tar.gz -O /tmp/twitch-cli.tar.gz && \
+    tar -xzf /tmp/twitch-cli.tar.gz twitch-cli_1.1.21_Linux_arm64/twitch && \
+    mv twitch-cli_1.1.21_Linux_arm64/twitch /usr/local/bin/twitch && \
+    rm -rf /tmp/twitch-cli.tar.gz && \
+    chmod +x /usr/local/bin/twitch
 
 RUN gpg --lock-never --no-default-keyring \
         --keyring /usr/share/keyrings/yarn.gpg \

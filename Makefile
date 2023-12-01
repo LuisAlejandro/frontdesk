@@ -30,6 +30,15 @@ run: start
 console: start
 	@$(exec_on_docker) bash
 
+create-subscription: start
+	@$(exec_on_docker) yarn ts-node scripts/create-subscription.ts
+
+list-subscriptions: start
+	@$(exec_on_docker) yarn ts-node scripts/list-subscriptions.ts
+
+delete-subscriptions: start
+	@$(exec_on_docker) yarn ts-node scripts/delete-subscriptions.ts
+
 stop:
 	@docker-compose -p frontdesk -f docker-compose.yml stop app
 
