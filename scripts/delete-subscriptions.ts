@@ -1,9 +1,7 @@
 import axios from 'axios';
 
 const deleteSubscriptions = async () => {
-  const twitchUserId = process.env.TWITCH_USER_ID;
   const twitchClientId = process.env.TWITCH_CLIENT_ID;
-  const twitchClientSecret = process.env.TWITCH_CLIENT_SECRET;
   const twitchAppToken = process.env.TWITCH_APP_TOKEN;
 
   const response = await axios.get('https://api.twitch.tv/helix/eventsub/subscriptions', {
