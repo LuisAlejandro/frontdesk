@@ -16,7 +16,7 @@ jobs:
             await github.rest.actions.disableWorkflow({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              workflow_id: 'actionsflow.yml',
+              workflow_id: 'rss-agoras.yml',
             });
       - name: Enable workflows
         uses: actions/github-script@v6
@@ -26,5 +26,5 @@ jobs:
             await github.rest.actions.enableWorkflow({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              workflow_id: 'actionsflow.yml',
+              workflow_id: 'rss-agoras.yml',
             });
