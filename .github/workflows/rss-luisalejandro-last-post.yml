@@ -3,7 +3,7 @@ name: Post new blog post to social networks
 on:
   schedule:
     - cron: 0 13,16,20 * * *
-
+    
 jobs:
   twitter-new-post:
     name: Nuevo artículo
