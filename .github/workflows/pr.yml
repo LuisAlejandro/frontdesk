@@ -8,7 +8,7 @@ on:
       - synchronize
       - reopened
     branches:
-      - develop
+      - master
 
 jobs:
   approve:
