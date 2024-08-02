@@ -1,6 +1,7 @@
 name: Post new Agoras version to social networks
 
 on:
+  workflow_dispatch:
   schedule:
     - cron: 0 11,16,22 * * *
 

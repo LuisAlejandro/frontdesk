@@ -1,6 +1,7 @@
 name: Post Twitch status update
 
 on:
+  workflow_dispatch:
   repository_dispatch:
     types: stream-online
 

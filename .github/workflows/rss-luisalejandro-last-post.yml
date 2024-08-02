@@ -1,6 +1,7 @@
 name: Post new blog post to social networks
 
 on:
+  workflow_dispatch:
   schedule:
     - cron: 0 13,16,20 * * *
     
