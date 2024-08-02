@@ -21,13 +21,13 @@ runs:
   using: composite
   steps:
     - name: Setup Node
-      uses: actions/setup-node@v3
+      uses: actions/setup-node@v4
       with:
         node-version: '18'
         cache: yarn
 
     - name: Restoring node_modules cache
-      uses: actions/cache@v3
+      uses: actions/cache@v4
       id: node-cache
       with:
         path: node_modules
@@ -35,7 +35,7 @@ runs:
         restore-keys: ${{ runner.os }}-node-modules-${{ runner.arch }}-
 
     - name: Restoring frontdesk cache
-      uses: actions/cache/restore@v3
+      uses: actions/cache/restore@v4
       id: frontdesk-cache
       with:
         path: .frontdesk
@@ -67,7 +67,7 @@ runs:
       continue-on-error: true
 
     - name: Saving frontdesk cache
-      uses: actions/cache/save@v3
+      uses: actions/cache/save@v4
       with:
         path: .frontdesk
         key: ${{ steps.frontdesk-cache.outputs.cache-primary-key }}
