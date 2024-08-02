@@ -23,6 +23,7 @@ jobs:
               if (workflow.name === 'Keep scheduled workflows alive' || workflow.state !== 'active') {
                 continue;
               }
+              console.log(`Disabling workflow: ${workflow.name}`);
               await github.rest.actions.disableWorkflow({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
@@ -43,6 +44,7 @@ jobs:
               if (workflow.name === 'Keep scheduled workflows alive' || workflow.state === 'active') {
                 continue;
               }
+              console.log(`Enabling workflow: ${workflow.name}`);
               await github.rest.actions.enableWorkflow({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
