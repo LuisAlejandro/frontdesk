@@ -24,6 +24,7 @@ jobs:
                 continue;
               }
               console.log(`Disabling workflow: ${workflow.name}`);
+              console.log(workflow);
               await github.rest.actions.disableWorkflow({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
@@ -45,6 +46,7 @@ jobs:
                 continue;
               }
               console.log(`Enabling workflow: ${workflow.name}`);
+              console.log(workflow);
               await github.rest.actions.enableWorkflow({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
