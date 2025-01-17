@@ -30,14 +30,17 @@ run: start
 console: start
 	@$(exec_on_docker) bash
 
-create-subscription: start
-	@$(exec_on_docker) yarn ts-node scripts/create-subscription.ts
+twitch-create-subscription: start
+	@$(exec_on_docker) yarn ts-node scripts/twitch/create-subscription.ts
 
-list-subscriptions: start
-	@$(exec_on_docker) yarn ts-node scripts/list-subscriptions.ts
+twitch-list-subscriptions: start
+	@$(exec_on_docker) yarn ts-node scripts/twitch/list-subscriptions.ts
 
-delete-subscriptions: start
-	@$(exec_on_docker) yarn ts-node scripts/delete-subscriptions.ts
+twitch-delete-subscriptions: start
+	@$(exec_on_docker) yarn ts-node scripts/twitch/delete-subscriptions.ts
+
+gymcontrol-create-license: start
+	@$(exec_on_docker) yarn ts-node scripts/gymcontrol/create-license.ts
 
 stop:
 	@docker-compose -p frontdesk -f docker-compose.yml stop app
