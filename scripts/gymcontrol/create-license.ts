@@ -34,6 +34,7 @@ const createLicense = async () => {
     metadata: {
       "activation-key": ACTIVATION_KEY,
       "password": hashedPassword,
+      "identifier": ''
     },
   }).then((response) => {
     console.log(`Activation Key: ${response.object.metadata['activation-key']}`);
