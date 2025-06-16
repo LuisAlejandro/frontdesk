@@ -9,7 +9,7 @@
     "@actions/core": "^1.10.0",
     "@cosmicjs/sdk": "^1.2.0",
     "@extractus/feed-extractor": "^7.0.5",
-    "axios": "^1.7.4",
+    "axios": "^1.8.2",
     "bcrypt": "^5.1.1",
     "cache-manager": "^5.2.3",
     "cache-manager-fs-hash": "^1.0.0",
