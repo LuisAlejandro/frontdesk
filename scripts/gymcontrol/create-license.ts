@@ -15,7 +15,7 @@ const createLicense = async () => {
   const ACTIVATION_SALT = process.env.GYMCONTROL_ACTIVATION_SALT || '';
   const ACTIVATION_NAME = process.env.GYMCONTROL_ACTIVATION_NAME || '';
   const ACTIVATION_TYPE = process.env.GYMCONTROL_ACTIVATION_TYPE || '';
-  const ACTIVATION_EXPIRATION = moment().add(10, 'years').format('DD/MM/YYYY');
+  const ACTIVATION_EXPIRATION = moment().add(30, 'years').format('DD/MM/YYYY');
 
   const cosmic = createBucketClient({
     bucketSlug: BUCKET_SLUG,
@@ -27,7 +27,7 @@ const createLicense = async () => {
   const ACTIVATION_KEY = cryptr.encrypt(jwt.sign({ type: ACTIVATION_TYPE, name: ACTIVATION_NAME, expiration: ACTIVATION_EXPIRATION }, ACTIVATION_SALT));
   const password = randomBytes(32).toString('hex');
   const hashedPassword = bcrypt.hashSync(password, 10);
-  
+
   cosmic.objects.insertOne({
     title: ACTIVATION_NAME,
     type: 'licenses',
