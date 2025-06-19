@@ -76,15 +76,15 @@ jobs:
           status-text: 'Nuevo artículo: ${{ steps.vars.outputs.title }}'
           status-link: ${{ steps.vars.outputs.link }}
 
-      - name: Posting to LinkedIn /in/martinezfaneyth
-        uses: LuisAlejandro/agoras-actions@1.1.3
-        if: steps.vars.outputs.publish == 'yes'
-        with:
-          network: linkedin
-          action: post
-          linkedin-access-token: ${{ secrets.LA_LINKEDIN_ACCESS_TOKEN }}
-          status-text: 'Nuevo artículo: ${{ steps.vars.outputs.title }}'
-          status-link: ${{ steps.vars.outputs.link }}
+      # - name: Posting to LinkedIn /in/martinezfaneyth
+      #   uses: LuisAlejandro/agoras-actions@1.1.3
+      #   if: steps.vars.outputs.publish == 'yes'
+      #   with:
+      #     network: linkedin
+      #     action: post
+      #     linkedin-access-token: ${{ secrets.LA_LINKEDIN_ACCESS_TOKEN }}
+      #     status-text: 'Nuevo artículo: ${{ steps.vars.outputs.title }}'
+      #     status-link: ${{ steps.vars.outputs.link }}
 
       - name: Posting to Instagram @LuisDevelops
         uses: LuisAlejandro/agoras-actions@1.1.3
