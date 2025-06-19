@@ -39,7 +39,10 @@ runs:
       id: frontdesk-cache
       with:
         path: .frontdesk
-        key: ${{ runner.os }}-frontdesk-${{ inputs.name }}-${{ runner.arch }}
+        key: ${{ runner.os }}-frontdesk-${{ inputs.name }}-${{ runner.arch }}-${{ github.run_id }}
+        restore-keys: |
+          ${{ runner.os }}-frontdesk-${{ inputs.name }}-${{ runner.arch }}-
+          ${{ runner.os }}-frontdesk-${{ inputs.name }}-
 
     - name: Install dependencies
       shell: bash
@@ -55,19 +58,9 @@ runs:
         INPUT_FEED_URL: ${{ inputs.feed_url }}
         INPUT_MAX_ENTRIES: ${{ inputs.max_entries }}
 
-    - name: Clear stored cache (workaround)
-      if: ${{ steps.frontdesk-cache.outputs.cache-hit }}
-      shell: bash
-      env:
-        GH_TOKEN: ${{ github.token }}
-        KEY: ${{ steps.frontdesk-cache.outputs.cache-primary-key }}
-      run: |
-        gh extension install actions/gh-actions-cache
-        gh actions-cache delete $KEY --confirm
-      continue-on-error: true
-
     - name: Saving frontdesk cache
       uses: actions/cache/save@v4
+      if: always()
       with:
         path: .frontdesk
         key: ${{ steps.frontdesk-cache.outputs.cache-primary-key }}
